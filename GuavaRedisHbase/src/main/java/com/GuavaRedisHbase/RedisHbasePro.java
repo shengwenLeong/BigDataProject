@@ -13,18 +13,46 @@ public final class RedisHbasePro {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string getKey = 1;</code>
+     * <code>required string rowKey = 1;</code>
      */
-    boolean hasGetKey();
+    boolean hasRowKey();
     /**
-     * <code>required string getKey = 1;</code>
+     * <code>required string rowKey = 1;</code>
      */
-    java.lang.String getGetKey();
+    java.lang.String getRowKey();
     /**
-     * <code>required string getKey = 1;</code>
+     * <code>required string rowKey = 1;</code>
      */
     com.google.protobuf.ByteString
-        getGetKeyBytes();
+        getRowKeyBytes();
+
+    /**
+     * <code>required string family = 2;</code>
+     */
+    boolean hasFamily();
+    /**
+     * <code>required string family = 2;</code>
+     */
+    java.lang.String getFamily();
+    /**
+     * <code>required string family = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getFamilyBytes();
+
+    /**
+     * <code>required string column = 3;</code>
+     */
+    boolean hasColumn();
+    /**
+     * <code>required string column = 3;</code>
+     */
+    java.lang.String getColumn();
+    /**
+     * <code>required string column = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getColumnBytes();
   }
   /**
    * Protobuf type {@code getValueRequest}
@@ -81,7 +109,19 @@ public final class RedisHbasePro {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              getKey_ = bs;
+              rowKey_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              family_ = bs;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              column_ = bs;
               break;
             }
           }
@@ -124,19 +164,19 @@ public final class RedisHbasePro {
     }
 
     private int bitField0_;
-    public static final int GETKEY_FIELD_NUMBER = 1;
-    private java.lang.Object getKey_;
+    public static final int ROWKEY_FIELD_NUMBER = 1;
+    private java.lang.Object rowKey_;
     /**
-     * <code>required string getKey = 1;</code>
+     * <code>required string rowKey = 1;</code>
      */
-    public boolean hasGetKey() {
+    public boolean hasRowKey() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string getKey = 1;</code>
+     * <code>required string rowKey = 1;</code>
      */
-    public java.lang.String getGetKey() {
-      java.lang.Object ref = getKey_;
+    public java.lang.String getRowKey() {
+      java.lang.Object ref = rowKey_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -144,22 +184,106 @@ public final class RedisHbasePro {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          getKey_ = s;
+          rowKey_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>required string getKey = 1;</code>
+     * <code>required string rowKey = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getGetKeyBytes() {
-      java.lang.Object ref = getKey_;
+        getRowKeyBytes() {
+      java.lang.Object ref = rowKey_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        getKey_ = b;
+        rowKey_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FAMILY_FIELD_NUMBER = 2;
+    private java.lang.Object family_;
+    /**
+     * <code>required string family = 2;</code>
+     */
+    public boolean hasFamily() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string family = 2;</code>
+     */
+    public java.lang.String getFamily() {
+      java.lang.Object ref = family_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          family_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string family = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFamilyBytes() {
+      java.lang.Object ref = family_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        family_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int COLUMN_FIELD_NUMBER = 3;
+    private java.lang.Object column_;
+    /**
+     * <code>required string column = 3;</code>
+     */
+    public boolean hasColumn() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required string column = 3;</code>
+     */
+    public java.lang.String getColumn() {
+      java.lang.Object ref = column_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          column_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string column = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getColumnBytes() {
+      java.lang.Object ref = column_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        column_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -167,7 +291,9 @@ public final class RedisHbasePro {
     }
 
     private void initFields() {
-      getKey_ = "";
+      rowKey_ = "";
+      family_ = "";
+      column_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -175,7 +301,15 @@ public final class RedisHbasePro {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasGetKey()) {
+      if (!hasRowKey()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasFamily()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasColumn()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -187,7 +321,13 @@ public final class RedisHbasePro {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getGetKeyBytes());
+        output.writeBytes(1, getRowKeyBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getFamilyBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getColumnBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -200,7 +340,15 @@ public final class RedisHbasePro {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getGetKeyBytes());
+          .computeBytesSize(1, getRowKeyBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getFamilyBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getColumnBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -319,8 +467,12 @@ public final class RedisHbasePro {
 
       public Builder clear() {
         super.clear();
-        getKey_ = "";
+        rowKey_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
+        family_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        column_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -352,7 +504,15 @@ public final class RedisHbasePro {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.getKey_ = getKey_;
+        result.rowKey_ = rowKey_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.family_ = family_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.column_ = column_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -369,9 +529,19 @@ public final class RedisHbasePro {
 
       public Builder mergeFrom(com.GuavaRedisHbase.RedisHbasePro.getValueRequest other) {
         if (other == com.GuavaRedisHbase.RedisHbasePro.getValueRequest.getDefaultInstance()) return this;
-        if (other.hasGetKey()) {
+        if (other.hasRowKey()) {
           bitField0_ |= 0x00000001;
-          getKey_ = other.getKey_;
+          rowKey_ = other.rowKey_;
+          onChanged();
+        }
+        if (other.hasFamily()) {
+          bitField0_ |= 0x00000002;
+          family_ = other.family_;
+          onChanged();
+        }
+        if (other.hasColumn()) {
+          bitField0_ |= 0x00000004;
+          column_ = other.column_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -379,7 +549,15 @@ public final class RedisHbasePro {
       }
 
       public final boolean isInitialized() {
-        if (!hasGetKey()) {
+        if (!hasRowKey()) {
+          
+          return false;
+        }
+        if (!hasFamily()) {
+          
+          return false;
+        }
+        if (!hasColumn()) {
           
           return false;
         }
@@ -405,24 +583,24 @@ public final class RedisHbasePro {
       }
       private int bitField0_;
 
-      private java.lang.Object getKey_ = "";
+      private java.lang.Object rowKey_ = "";
       /**
-       * <code>required string getKey = 1;</code>
+       * <code>required string rowKey = 1;</code>
        */
-      public boolean hasGetKey() {
+      public boolean hasRowKey() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string getKey = 1;</code>
+       * <code>required string rowKey = 1;</code>
        */
-      public java.lang.String getGetKey() {
-        java.lang.Object ref = getKey_;
+      public java.lang.String getRowKey() {
+        java.lang.Object ref = rowKey_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            getKey_ = s;
+            rowKey_ = s;
           }
           return s;
         } else {
@@ -430,53 +608,205 @@ public final class RedisHbasePro {
         }
       }
       /**
-       * <code>required string getKey = 1;</code>
+       * <code>required string rowKey = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getGetKeyBytes() {
-        java.lang.Object ref = getKey_;
+          getRowKeyBytes() {
+        java.lang.Object ref = rowKey_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          getKey_ = b;
+          rowKey_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>required string getKey = 1;</code>
+       * <code>required string rowKey = 1;</code>
        */
-      public Builder setGetKey(
+      public Builder setRowKey(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        getKey_ = value;
+        rowKey_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string getKey = 1;</code>
+       * <code>required string rowKey = 1;</code>
        */
-      public Builder clearGetKey() {
+      public Builder clearRowKey() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        getKey_ = getDefaultInstance().getGetKey();
+        rowKey_ = getDefaultInstance().getRowKey();
         onChanged();
         return this;
       }
       /**
-       * <code>required string getKey = 1;</code>
+       * <code>required string rowKey = 1;</code>
        */
-      public Builder setGetKeyBytes(
+      public Builder setRowKeyBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        getKey_ = value;
+        rowKey_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object family_ = "";
+      /**
+       * <code>required string family = 2;</code>
+       */
+      public boolean hasFamily() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string family = 2;</code>
+       */
+      public java.lang.String getFamily() {
+        java.lang.Object ref = family_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            family_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string family = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFamilyBytes() {
+        java.lang.Object ref = family_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          family_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string family = 2;</code>
+       */
+      public Builder setFamily(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        family_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string family = 2;</code>
+       */
+      public Builder clearFamily() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        family_ = getDefaultInstance().getFamily();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string family = 2;</code>
+       */
+      public Builder setFamilyBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        family_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object column_ = "";
+      /**
+       * <code>required string column = 3;</code>
+       */
+      public boolean hasColumn() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required string column = 3;</code>
+       */
+      public java.lang.String getColumn() {
+        java.lang.Object ref = column_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            column_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string column = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getColumnBytes() {
+        java.lang.Object ref = column_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          column_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string column = 3;</code>
+       */
+      public Builder setColumn(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        column_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string column = 3;</code>
+       */
+      public Builder clearColumn() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        column_ = getDefaultInstance().getColumn();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string column = 3;</code>
+       */
+      public Builder setColumnBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        column_ = value;
         onChanged();
         return this;
       }
@@ -1227,12 +1557,13 @@ public final class RedisHbasePro {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025GuavaRedisHbase.proto\"!\n\017getValueReque" +
-      "st\022\016\n\006getKey\030\001 \002(\t\"+\n\025getBackResultRespo" +
-      "nse\022\022\n\nBackResult\030\001 \002(\t2R\n\024RedisHbasePro" +
-      "Service\022:\n\016getVauleFromCo\022\020.getValueRequ" +
-      "est\032\026.getBackResultResponseB)\n\023com.Guava" +
-      "RedisHbaseB\rRedisHbaseProH\001\210\001\001"
+      "\n\025GuavaRedisHbase.proto\"A\n\017getValueReque" +
+      "st\022\016\n\006rowKey\030\001 \002(\t\022\016\n\006family\030\002 \002(\t\022\016\n\006co" +
+      "lumn\030\003 \002(\t\"+\n\025getBackResultResponse\022\022\n\nB" +
+      "ackResult\030\001 \002(\t2R\n\024RedisHbaseProService\022" +
+      ":\n\016getVauleFromCo\022\020.getValueRequest\032\026.ge" +
+      "tBackResultResponseB)\n\023com.GuavaRedisHba" +
+      "seB\rRedisHbaseProH\001\210\001\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1251,7 +1582,7 @@ public final class RedisHbasePro {
     internal_static_getValueRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_getValueRequest_descriptor,
-        new java.lang.String[] { "GetKey", });
+        new java.lang.String[] { "RowKey", "Family", "Column", });
     internal_static_getBackResultResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_getBackResultResponse_fieldAccessorTable = new

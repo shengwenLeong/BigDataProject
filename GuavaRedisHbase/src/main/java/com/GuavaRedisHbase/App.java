@@ -121,7 +121,7 @@ public class App
                 @Override
                 public String call(RedisHbaseProService instance) throws IOException {
                     BlockingRpcCallback rpcCallback = new BlockingRpcCallback();
-                    builder.setGetKey("123");
+                    builder.setRowKey("abc").setFamily("123").setColumn("567");
                     instance.getVauleFromCo(null, builder.build(), rpcCallback);
                     getBackResultResponse response = (getBackResultResponse)rpcCallback.get();
                     return response.hasBackResult()?response.getBackResult():"00";

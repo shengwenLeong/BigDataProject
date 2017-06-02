@@ -25,6 +25,7 @@
     import com.google.protobuf.Service;  
    
     import com.GuavaRedisHbase.RedisHbasePro;
+
       
     public class RedisHbaseEndPoint extends RedisHbasePro.RedisHbaseProService  
             implements Coprocessor, CoprocessorService {  
@@ -53,10 +54,17 @@
         @Override  
         public void getVauleFromCo(RpcController controller, RedisHbasePro.getValueRequest request, RpcCallback<RedisHbasePro.getBackResultResponse> done) {  
              
-             String requestKey = request.getGetKey();
-             System.out.println(requestKey);
+            // String userkey = request.getUserKey();
+
+             String rowKey = request.getRowKey();
+             String family = request.getFamily();
+             String column = request.getColumn();
+             String key = rowKey+family+column;
+             System.out.println("-----"+rowKey);
+             System.out.println("-----"+family);
+             System.out.println("-----"+column);
              RedisHbasePro.getBackResultResponse.Builder responseBuilder = RedisHbasePro.getBackResultResponse.newBuilder(); 
-             responseBuilder.setBackResult(requestKey);
+             responseBuilder.setBackResult(key);
              done.run(responseBuilder.build());
             
         }  

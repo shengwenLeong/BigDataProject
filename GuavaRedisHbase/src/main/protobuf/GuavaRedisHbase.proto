@@ -5,7 +5,9 @@ option java_generic_services = true;
 option optimize_for = SPEED;
 
 message getValueRequest {
-  required string getKey = 1;
+     required string rowKey = 1;
+     required string family = 2;
+     required string column = 3;
 }
 
 message getBackResultResponse {
