@@ -28,7 +28,7 @@ public class Guava{
          if (var.equals(key)) {
  
              System.out.println("-----");
-             /**执行其他操作，获取值**/
+            //hbase
              Object object = "Google.com.hk";
              put(key, object);
          } else {

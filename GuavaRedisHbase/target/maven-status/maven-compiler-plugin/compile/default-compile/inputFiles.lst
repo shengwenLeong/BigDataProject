@@ -1,3 +1,5 @@
 /home/nee/bigdata/GuavaRedisHbase/src/main/java/com/GuavaRedisHbase/App.java
 /home/nee/bigdata/GuavaRedisHbase/src/main/java/com/GuavaRedisHbase/Guava.java
 /home/nee/bigdata/GuavaRedisHbase/src/main/java/com/GuavaRedisHbase/UserService.java
+/home/nee/bigdata/GuavaRedisHbase/src/main/java/com/GuavaRedisHbase/coprocessor/RedisHbaseEndPoint.java
+/home/nee/bigdata/GuavaRedisHbase/src/main/java/com/GuavaRedisHbase/RedisHbasePro.java
