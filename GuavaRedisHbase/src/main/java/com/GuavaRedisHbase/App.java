@@ -88,50 +88,31 @@ public class App
       catch(Exception e) {e.printStackTrace();}
     }
 
-    String ValueFromCoprocessor(String usertable,final String rowkey,final String family,final String column)
-    {
-          String valueFromCoprocessor = null;
-          try {
-            Configuration config = new Configuration();
-
-            HConnection connection = HConnectionManager.createConnection(config);
-            TableName tableName = TableName.valueOf(usertable);
-            HTableInterface table = connection.getTable(tableName);
-            //final getValueRequest request = getValueRequest.newBuilder().build();
-            final com.GuavaRedisHbase.RedisHbasePro.getValueRequest.Builder builder = getValueRequest.newBuilder();
-
-            Map<byte[], String> results = table.coprocessorService(RedisHbaseProService.class, null, null, new Batch.Call<RedisHbaseProService, String>() {
-                @Override
-                public String call(RedisHbaseProService instance) throws IOException {
-                    BlockingRpcCallback rpcCallback = new BlockingRpcCallback();
-                    builder.setRowKey(rowkey).setFamily(family).setColumn(column);
-                    instance.getVauleFromCo(null, builder.build(), rpcCallback);
-                    getBackResultResponse response = (getBackResultResponse)rpcCallback.get();
-                    return response.hasBackResult()?response.getBackResult():"00";
-                }
-            });
-
-            for (String cnt : results.values()) {
-                System.out.println("Value = " + cnt);
-                valueFromCoprocessor = cnt;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return valueFromCoprocessor;
-    }
-
     
+
+
     public static void main(String[] args ) throws Exception
     {
+        String tblName = args[0];
+        String rowKey = args[1];
+        String family = args[2];
+        String column = args[3];
+        String Key = rowKey+"_"+family+"_"+column;
+
+        System.out.println( "UserSearchKey "+rowKey);
+        App app = new App();
+        app.createTable(tblName);
+        app.populateTenRows(tblName,500);
+
         Guava guava = new Guava();
+        String result = guava.get(tblName,Key);
+        System.out.println("Result = " + result);
+        /*Guava guava = new Guava();
         System.out.println( "Hello World!" );
-        System.out.println(guava.get("man"));
-        System.out.println(guava.get("lsw"));
-        guava.put("lsw" , "good boy");
-        System.out.println(guava.get("lsw"));
+        System.out.println(guava.get("test1","r811_c1_col1"));
+        System.out.println(guava.get("test1","r911_c1_col1"));
+        guava.put("r932_c1_col1" , "good boy");
+        System.out.println(guava.get("test1","r911_c1_col1"));
 
         System.out.println( "HBase Endpoint Test: Count from RegionServer" );
         
@@ -139,16 +120,12 @@ public class App
             System.err.println("Usage: CountEndpointTest <Table Name>");
             System.exit(1);
         }
-        String tblName = args[0];
-        String rowKey = args[1];
-        String family = args[2];
-        String column = args[3];
-        System.out.println( "UserSearchKey "+rowKey);
-        App app = new App();
-        app.createTable(tblName);
-        app.populateTenRows(tblName,500);
-        String result = app.ValueFromCoprocessor(tblName,rowKey,family,column);
+        
+        
+        String result = app.UserGet(tblName,rowKey,family,column);
         System.out.println("Result = " + result);
+
+        
        /* try {
             Configuration config = new Configuration();
 
