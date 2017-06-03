@@ -74,7 +74,7 @@ public class App
         {
           String rowkey = "r" + Integer.toString(i);
           Put put = new Put(rowkey.getBytes());
-          put.add("c1".getBytes(),"col1".getBytes(),"v".getBytes());
+          put.add("c1".getBytes(),"col1".getBytes(),rowkey.getBytes());
           tbl.put(put);           
         }
         for(int i=0; i< 1000 - rowCount; i++)
@@ -105,15 +105,17 @@ public class App
             System.exit(1);
         }
         String tblName = args[0];
+        final String UserSearchKey = args[1];
+         System.out.println( "UserSearchKey "+UserSearchKey );
         App app = new App();
         app.createTable(tblName);
+        app.populateTenRows(tblName,500);
         try {
             Configuration config = new Configuration();
 
             HConnection connection = HConnectionManager.createConnection(config);
             TableName tableName = TableName.valueOf(args[0]);
             HTableInterface table = connection.getTable(tableName);
-
             //final getValueRequest request = getValueRequest.newBuilder().build();
             final com.GuavaRedisHbase.RedisHbasePro.getValueRequest.Builder builder = getValueRequest.newBuilder();
 
@@ -121,7 +123,7 @@ public class App
                 @Override
                 public String call(RedisHbaseProService instance) throws IOException {
                     BlockingRpcCallback rpcCallback = new BlockingRpcCallback();
-                    builder.setRowKey("abc").setFamily("123").setColumn("567");
+                    builder.setRowKey(UserSearchKey).setFamily("c1").setColumn("col1");
                     instance.getVauleFromCo(null, builder.build(), rpcCallback);
                     getBackResultResponse response = (getBackResultResponse)rpcCallback.get();
                     return response.hasBackResult()?response.getBackResult():"00";
