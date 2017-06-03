@@ -78,8 +78,8 @@
              Get get = new Get(Bytes.toBytes(request.getRowKey()));
              
              //Scan scan = new Scan();
-             //get.addFamily(Bytes.toBytes(request.getFamily()));
-             //get.addColumn(Bytes.toBytes(request.getFamily()), Bytes.toBytes(request.getColumn()));
+             get.addFamily(Bytes.toBytes(request.getFamily()));
+             get.addColumn(Bytes.toBytes(request.getFamily()), Bytes.toBytes(request.getColumn()));
              try
              {
                 //scanner = env.getRegion().getScanner(scan);
