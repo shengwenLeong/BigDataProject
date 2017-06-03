@@ -10,6 +10,6 @@ if [ $# -lt 2 ]; then
 else
  echo 'param input'
  export CLASSPATH=`hbase classpath`
-  java com.GuavaRedisHbase.App $1 $2 $3 $4
+  java com.GuavaRedisHbase.App $1 $2 $3 $4 $5
   #java -Djava.ext.dirs=./:$HBASE_HOME/lib org.ibm.developerworks.hbaseCoprocessorDemo $1 $2 $3
 fi

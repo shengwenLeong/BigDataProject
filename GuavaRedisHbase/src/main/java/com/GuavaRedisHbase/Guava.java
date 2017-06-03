@@ -49,7 +49,7 @@ import com.GuavaRedisHbase.RedisHbasePro.RedisHbaseProService;
 public class Guava{
 
     private static LoadingCache<String, String> cache = CacheBuilder.newBuilder()
-             .maximumSize(100)
+             .maximumSize(2)
              .expireAfterAccess(24, TimeUnit.HOURS)
              .recordStats()
              .build(new CacheLoader<String, String>() {
@@ -72,8 +72,7 @@ public class Guava{
              System.out.println(temp[0]);
              System.out.println(temp[1]);
              System.out.println(temp[2]);
-             Guava guava = new Guava();
-             String result = guava.ValueFromCoprocessor(usertable,temp[0],temp[1],temp[2]);
+             String result = ValueFromCoprocessor(usertable,temp[0],temp[1],temp[2]);
              cache.put(key, result);
          } else {
              System.out.println("++++++");
@@ -84,8 +83,27 @@ public class Guava{
      public static void put(String key, String value) {
          cache.put(key, value);
      }
+    public static void Userput(String tableName,String key, String value) {
+         cache.put(key, value);
+         String[] temp = key.split("_");
+         PutHbase(tableName,temp[0],temp[1],temp[2],value);
+     }
 
-    String ValueFromCoprocessor(String usertable,final String rowkey,final String family,final String column)
+    static void PutHbase(String tableName, String rowkey, String family, String column , String value)
+    {
+      try{
+        Configuration config = new Configuration();
+        HConnection conn = HConnectionManager.createConnection(config);
+        HTableInterface tbl = conn.getTable(tableName);
+        //insert 1000
+          Put put = new Put(rowkey.getBytes());
+          put.add(family.getBytes(),column.getBytes(),value.getBytes());
+          tbl.put(put);           
+        }
+      catch(Exception e) {e.printStackTrace();}
+    }
+
+    static String ValueFromCoprocessor(String usertable,final String rowkey,final String family,final String column)
     {
           String valueFromCoprocessor = null;
           try {

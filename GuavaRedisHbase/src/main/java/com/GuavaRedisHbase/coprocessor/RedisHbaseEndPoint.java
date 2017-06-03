@@ -94,7 +94,7 @@
              System.out.println("-----"+column);
              String BackResult = rowKey+family+column;
 			 String val = null;
-			 String key = rowKey+family+column;
+			 String key = rowKey+"_"+family+"_"+column;
              RedisHbasePro.getBackResultResponse.Builder responseBuilder = RedisHbasePro.getBackResultResponse.newBuilder(); 
              InternalScanner scanner = null;
              Result hbaseresult = null;

@@ -55,7 +55,7 @@ public class App
           admin.deleteTable(tableName);
         }
         tableDesc.addFamily(new HColumnDescriptor("c1")); //add column family
-       // tableDesc.addCoprocessor("org.ibm.developerworks.coprocessor.RowCountObserver");
+        tableDesc.addCoprocessor("com.GuavaRedisHbase.coprocessor.RedisHBaseObserver");
         tableDesc.addCoprocessor("com.GuavaRedisHbase.coprocessor.RedisHbaseEndPoint");
         admin.createTable(tableDesc);
       
@@ -97,6 +97,7 @@ public class App
         String rowKey = args[1];
         String family = args[2];
         String column = args[3];
+        String vaule  = args[4];
         String Key = rowKey+"_"+family+"_"+column;
 
         System.out.println( "UserSearchKey "+rowKey);
@@ -107,6 +108,14 @@ public class App
         Guava guava = new Guava();
         String result = guava.get(tblName,Key);
         System.out.println("Result = " + result);
+        guava.Userput("test1" , "100_c1_col1","lsw is boy0");
+        guava.Userput("test1" , "101_c1_col1","lsw is boy1");
+        guava.Userput("test1" , "102_c1_col1","lsw is boy2");
+        String result1 = guava.get(tblName,"100_c1_col1");
+        String result2 = guava.get(tblName,"102_c1_col1");
+
+        System.out.println("Result1 = " + result1);
+        System.out.println("Result2 = " + result2);
         /*Guava guava = new Guava();
         System.out.println( "Hello World!" );
         System.out.println(guava.get("test1","r811_c1_col1"));
