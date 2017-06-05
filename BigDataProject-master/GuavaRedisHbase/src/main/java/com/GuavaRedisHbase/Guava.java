@@ -49,7 +49,7 @@ import com.GuavaRedisHbase.RedisHbasePro.RedisHbaseProService;
 public class Guava{
 
     private static LoadingCache<String, String> cache = CacheBuilder.newBuilder()
-             .maximumSize(25000)
+             .maximumSize(50000)
              .expireAfterAccess(24, TimeUnit.HOURS)
              .recordStats()
              .build(new CacheLoader<String, String>() {
@@ -68,9 +68,6 @@ public class Guava{
          if (var.equals(key)) {
  
              String[] temp = key.split("_");
-             //System.out.println(temp[0]);
-            // System.out.println(temp[1]);
-             //System.out.println(temp[2]);
              result = ValueFromCoprocessor(table , usertable,temp[0],temp[1],temp[2]);
              cache.put(key, result);
          } else {

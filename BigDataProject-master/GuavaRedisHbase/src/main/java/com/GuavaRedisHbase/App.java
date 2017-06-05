@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.Random;
 
+  import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.HConnection;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.client.Delete;
@@ -83,15 +84,6 @@ public class App
           guava.put("r"+i+"_c1_col1","r"+i);
           tbl.put(put);           
         }
-        /*
-        for(int i=0; i< 1000 - rowCount; i++)
-        {
-          String rowkey = "r" + Integer.toString(i);
-          Delete d = new Delete(rowkey.getBytes());
-          tbl.delete(d);
-        }
-        */
-
       }
       catch(Exception e) {e.printStackTrace();}
     }
@@ -101,63 +93,47 @@ public class App
 
     public static void main(String[] args ) throws Exception
     {
-        /*
-        String tblName = args[0];
-        String rowKey = args[1];
-        String family = args[2];
-        String column = args[3];
-        String vaule  = args[4];
-        String Key = rowKey+"_"+family+"_"+column;
-
-        int datanum = 50;
-
-        System.out.println( "UserSearchKey "+rowKey);
-        App app = new App();
-        app.createTable(tblName);
-        app.populateTenRows(tblName,500);
-
-        Guava guava = new Guava();
-        String result = guava.get(tblName,Key);
-        System.out.println("Result = " + result);
-        guava.Userput("test1" , "100_c1_col1","lsw is boy0");
-        guava.Userput("test1" , "101_c1_col1","lsw is boy1");
-        guava.Userput("test1" , "102_c1_col1","lsw is boy2");
-        String result1 = guava.get(tblName,"100_c1_col1");
-        String result2 = guava.get(tblName,"102_c1_col1");
-
-        System.out.println("Result1 = " + result1);
-        System.out.println("Result2 = " + result2);
-        */
-        
+       
         FileOutputStream fs = new FileOutputStream(new File("guavaredishbase_time.txt"));
         PrintStream p = new PrintStream(fs);
-         Guava guava = new Guava();
-
-        
-
+        Guava guava = new Guava();
         String tblName = args[0];
         App app = new App();
         app.createTable(tblName);
         app.populateTenRows(guava ,tblName,50000);
-
-        //String datanum = args[1]; 
-        //int datanum = 50000;
-         Configuration config = new Configuration();
+        Configuration config = new Configuration();
 
         HConnection connection = HConnectionManager.createConnection(config);
         TableName tableName = TableName.valueOf(tblName);
         HTableInterface table = connection.getTable(tableName);
-
-        
+        Result hbaseresult = null;
+	    String abc =null;
        
         
+       /* long startTime1 = System.currentTimeMillis();
+        for(int i = 0;i < 500000;i++){
+            Random r = new Random();
+            int num = r.nextInt(1000000);
+            String keys = "r"+Integer.toString(num);
+            Get get = new Get(Bytes.toBytes(keys));
+            hbaseresult = table.get(get);
+             for(KeyValue value:hbaseresult.raw()){
+                //System.out.println("cf:"+new String(value.getFamily())+new String(value.getQualifier())+"="+new String(value.getValue()));
+                abc = Bytes.toString(value.getValue());
+            }
+            //p.println("result is　a " + guava.get(table , tblName,"r"+num+"_c1_col1"));
+            //guava.get(table , tblName,"r"+num+"_c1_col1");
+        }
+        long endTime1 = System.currentTimeMillis();
+        System.out.println("2500 data time : "+(endTime1-startTime1)+"ms");
+        p.println("2500 data time : "+(endTime1-startTime1)+"ms");
 
+        System.out.println(guava.reportStatus());*/
         //guava.invalidateAll(); 
         long startTime1 = System.currentTimeMillis();
-        for(int i = 0;i < 45000;i++){
+        for(int i = 0;i < 15000;i++){
             Random r = new Random();
             int num = r.nextInt(50000);
-            
             //p.println("result is　a " + guava.get(table , tblName,"r"+num+"_c1_col1"));
             guava.get(table , tblName,"r"+num+"_c1_col1");
         }
@@ -166,88 +142,6 @@ public class App
         p.println("2500 data time : "+(endTime1-startTime1)+"ms");
 
         System.out.println(guava.reportStatus());
-        /*long startTime2 = System.currentTimeMillis();
-        for(int i = 0;i < datanum / 2;i++){
-            Random r = new Random(600L);
-            int num = r.nextInt(600);
-            guava.get(tblName,"r"+num+"_c1_col1");
-        }
-        long endTime2 = System.currentTimeMillis();
-        System.out.println("600 data time : "+(endTime2-startTime2)+"ms");
-        p.println("600 data time : "+(endTime2-startTime2)+"ms");
-
-
-        
-        long startTime3 = System.currentTimeMillis();
-        for(int i = 0;i < datanum * 3/4 ;i++){
-            Random r = new Random(900L);
-            int num = r.nextInt(900);
-            guava.get(tblName,"r"+num+"_c1_col1");
-        }
-        long endTime3 = System.currentTimeMillis();
-        System.out.println("900 data time : "+(endTime3-startTime3)+"ms");
-        p.println("900 data time : "+(endTime3-startTime3)+"ms");
-
-
-        guava.invalidateAll(); 
-        long startTime4 = System.currentTimeMillis();
-        for(int i = 0;i < datanum ;i++){
-            Random r = new Random(1200L);
-            int num = r.nextInt(1200);
-            guava.get(tblName,"r"+num+"_c1_col1");
-        }
-        long endTime4 = System.currentTimeMillis();
-        System.out.println("1200 data time : "+(endTime4-startTime4)+"ms");
-        p.println("1200 data time : "+(endTime4-startTime4)+"ms");
-
-        /*Guava guava = new Guava();
-        System.out.println( "Hello World!" );
-        System.out.println(guava.get("test1","r811_c1_col1"));
-        System.out.println(guava.get("test1","r911_c1_col1"));
-        guava.put("r932_c1_col1" , "good boy");
-        System.out.println(guava.get("test1","r911_c1_col1"));
-
-        System.out.println( "HBase Endpoint Test: Count from RegionServer" );
-        
-        if (args.length < 4) {
-            System.err.println("Usage: CountEndpointTest <Table Name>");
-            System.exit(1);
-        }
-        
-        
-        String result = app.UserGet(tblName,rowKey,family,column);
-        System.out.println("Result = " + result);
-
-        
-       /* try {
-            Configuration config = new Configuration();
-
-            HConnection connection = HConnectionManager.createConnection(config);
-            TableName tableName = TableName.valueOf(args[0]);
-            HTableInterface table = connection.getTable(tableName);
-            //final getValueRequest request = getValueRequest.newBuilder().build();
-            final com.GuavaRedisHbase.RedisHbasePro.getValueRequest.Builder builder = getValueRequest.newBuilder();
-
-            Map<byte[], String> results = table.coprocessorService(RedisHbaseProService.class, null, null, new Batch.Call<RedisHbaseProService, String>() {
-                @Override
-                public String call(RedisHbaseProService instance) throws IOException {
-                    BlockingRpcCallback rpcCallback = new BlockingRpcCallback();
-                    builder.setRowKey(UserSearchKey).setFamily("c1").setColumn("col1");
-                    instance.getVauleFromCo(null, builder.build(), rpcCallback);
-                    getBackResultResponse response = (getBackResultResponse)rpcCallback.get();
-                    return response.hasBackResult()?response.getBackResult():"00";
-                }
-            });
-
-            for (String cnt : results.values()) {
-                System.out.println("Value = " + cnt);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }*/
-
         System.exit(0);
         
     } 
