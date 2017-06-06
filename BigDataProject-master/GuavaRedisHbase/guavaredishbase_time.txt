@@ -1,1 +1,1 @@
-2500 data time : 410ms
+45000data time : 474ms

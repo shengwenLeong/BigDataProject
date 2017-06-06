@@ -96,8 +96,11 @@ public class App
        
         FileOutputStream fs = new FileOutputStream(new File("guavaredishbase_time.txt"));
         PrintStream p = new PrintStream(fs);
-        Guava guava = new Guava();
+        Guava guava = new Guava(25000);
         String tblName = args[0];
+        int testNumber =  Integer.parseInt(args[1]);
+
+        //guava.setMaximumSize(Integer.parseInt(args[2]));
         App app = new App();
         app.createTable(tblName);
         app.populateTenRows(guava ,tblName,50000);
@@ -106,11 +109,13 @@ public class App
         HConnection connection = HConnectionManager.createConnection(config);
         TableName tableName = TableName.valueOf(tblName);
         HTableInterface table = connection.getTable(tableName);
-        Result hbaseresult = null;
-	    String abc =null;
+        
        
         
-       /* long startTime1 = System.currentTimeMillis();
+       /* 
+        Result hbaseresult = null;
+	      String abc =null;
+        long startTime1 = System.currentTimeMillis();
         for(int i = 0;i < 500000;i++){
             Random r = new Random();
             int num = r.nextInt(1000000);
@@ -131,15 +136,15 @@ public class App
         System.out.println(guava.reportStatus());*/
         //guava.invalidateAll(); 
         long startTime1 = System.currentTimeMillis();
-        for(int i = 0;i < 15000;i++){
+        for(int i = 0;i < testNumber;i++){
             Random r = new Random();
             int num = r.nextInt(50000);
             //p.println("result is　a " + guava.get(table , tblName,"r"+num+"_c1_col1"));
             guava.get(table , tblName,"r"+num+"_c1_col1");
         }
         long endTime1 = System.currentTimeMillis();
-        System.out.println("2500 data time : "+(endTime1-startTime1)+"ms");
-        p.println("2500 data time : "+(endTime1-startTime1)+"ms");
+        System.out.println(Integer.toString(testNumber)+"data time : "+(endTime1-startTime1)+"ms");
+        p.println(Integer.toString(testNumber)+"data time : "+(endTime1-startTime1)+"ms");
 
         System.out.println(guava.reportStatus());
         System.exit(0);

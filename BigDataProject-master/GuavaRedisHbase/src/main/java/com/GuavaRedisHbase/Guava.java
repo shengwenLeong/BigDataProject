@@ -47,9 +47,11 @@ import com.GuavaRedisHbase.RedisHbasePro.getBackResultResponse;
 import com.GuavaRedisHbase.RedisHbasePro.RedisHbaseProService;
 
 public class Guava{
+    
+    public  int maximumSize = 50000;
 
-    private static LoadingCache<String, String> cache = CacheBuilder.newBuilder()
-             .maximumSize(50000)
+    public  LoadingCache<String, String> cache = CacheBuilder.newBuilder()
+             .maximumSize(maximumSize)
              .expireAfterAccess(24, TimeUnit.HOURS)
              .recordStats()
              .build(new CacheLoader<String, String>() {
@@ -61,7 +63,7 @@ public class Guava{
                  }
              });
  
-     public static String get(HTableInterface table,String usertable,String key) throws ExecutionException {
+     public  String get(HTableInterface table,String usertable,String key) throws ExecutionException {
          String var = cache.get(key);
          //String var = key;
          String result = null;
@@ -77,23 +79,28 @@ public class Guava{
         //return result;
      }
  
-     public static void put(String key, String value) {
+     public void put(String key, String value) {
          cache.put(key, value);
      }
-     public static void invalidateAll() 
+     public void invalidateAll() 
      {
          cache.cleanUp(); 
      }
-     public static String reportStatus()
+     public String reportStatus()
      {
          return cache.stats().toString();
      }
-    public static void Userput(String tableName,String key, String value) {
+
+     public Guava(int maximumSize) {
+        maximumSize = maximumSize;
+    } 
+    //not be used
+    public void Userput(String tableName,String key, String value) {
          cache.put(key, value);
          String[] temp = key.split("_");
          PutHbase(tableName,temp[0],temp[1],temp[2],value);
      }
-
+    //not be used
     static void PutHbase(String tableName, String rowkey, String family, String column , String value)
     {
       try{
@@ -108,7 +115,7 @@ public class Guava{
       catch(Exception e) {e.printStackTrace();}
     }
 
-    static String ValueFromCoprocessor(HTableInterface table ,String usertable,final String rowkey,final String family,final String column)
+    String ValueFromCoprocessor(HTableInterface table ,String usertable,final String rowkey,final String family,final String column)
     {
           String valueFromCoprocessor = null;
           try {
